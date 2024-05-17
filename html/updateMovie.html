@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" type="image/x-icon" href="../img/favicon.png">
+    <title>Actualizar pelicula</title>
+</head>
+<body>
+    <!--Modificar Pelicula, Añadir un actor a una pelicula-->
+    <header>
+        <div class="logo">
+            <p>CineCRUD</p>
+        </div>
+        <div class="img-logo">
+            <img src="../img/logo.jpg" alt="" width="150px">
+        </div>
+    </header>
+    <main>
+        <!--Dos opciones!-->
+        <div class="container-options">
+            <button>
+                <img src="../img/button-update1.png" alt="">
+                <p>Modificar datos de una pelicula</p>
+            </button>
+            <button>
+                <img src="../img/button-update2.png" alt="">
+                <p>Modificar el casting de una pelicula</p>
+            </button>
+
+        </div>
+        <!--Ventanas a desplegar segun las opciones elegidas!-->
+        <div class="form-movie">
+            <!--Mostrar una tabla con todas las peliculas con js, elegir una y editar los datos-->
+            <div class="pelicula-table">
+                <p>Seleccione una pelicula para modificar!</p>
+            </div>
+            <div class="form">
+                <form action="">
+                    <label for="title">Titulo</label>
+                    <input type="text" name="title" disabled>
+                    <br>
+                    <label for="year">Año</label>
+                    <input type="number" name="year" disabled>
+                    <br>
+                    <label for="score">Score</label>
+                    <input type="number" name="score" disabled>
+                    <br>
+                    <label for="votes">Votos</label>
+                    <input type="text" name="votes" disabled>
+                    <br>
+                    <input type="submit" value="Modificar" disabled>
+                </form>
+            </div>
+        </div>
+        <div class="form-casting">
+            <div class="pelicula-table">
+                <p>Seleccione una pelicula para modificar!</p>
+            </div>
+
+            <div class="mostrarCasting">
+                <p>Este es el casting de la pelicula seleccionada</p>
+                <!--Mostrar el casting de una pelicula en orden, por cada elemento hay dos opciones modificar, eliminar y agregar-->
+                <!--Todos estos cambios generan una modificacion en la tabla actores y casting!-->
+            </div>
+            <div class="agregarActor">
+                <!--Agregar un actor de la tabla actor e indicar su ordinal-->
+                <form>
+                    <label for="actors">Seleccione uno de los siguientes actores</label><br>
+                    <select id="actors" name="actors">
+                        <option value="null">Seleccione un actor</option>
+                    </select>
+                    <br>
+                    <label for="ord">Indique el ordinal de ese actor</label>
+                    <br>   
+                    <input type="number" name="ord">
+                    <br>
+                    <input type="submit" name="Modificar">
+                </form>
+            </div>
+            <div class="crearActor">
+                <!--Crea un actor para la tabla actores!-->
+                <form>
+                    <label for="name">Indique el nombre del actor</label>
+                    <br>
+                    <input type="text" name="name">
+                    <br>
+                    <input type="submit" value="Crear actor">
+                    <br>
+                </form>
+            </div>
+
+            <!--Mostrar una tabla con todas las peliculas con js, elegir una y añadir un actor con el ordinal, mostrar de cada pelicula el orden de actores!-->
+        </div>
+    </main>
+    <footer>
+
+        <div class="david">
+            <a href="" >About Me</a>
+            <a href="" >Contact Me</a>
+        </div>
+        <div class="copy">
+            &copy; 2024 CineCRUD. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
