@@ -1,0 +1,141 @@
+
+main .message{
+    font-family: "Pacifico", cursive;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+    font-size: 2rem;
+    background-color:rgb(222, 184, 135, 0.3);
+    margin: 2rem;
+    padding: 1rem;
+}
+.movie-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust the number and size of columns based on available space */
+    gap: 1rem; 
+    padding: 1rem; 
+    text-align: center; 
+}
+.movie-table p {
+    background-color: #f0f0f0; 
+    padding: 1rem; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+.movie-table p:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05); 
+}
+.alertaExito{
+    display: none;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    color: white; 
+    padding: 2rem; 
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+    z-index: 1000; 
+}
+
+.alertaExito p {
+    margin: 0 0 1.5rem; 
+    font-size: 1.2rem; 
+}
+
+.alertaExito button {
+    background-color: #ffffff; 
+    color: #4CAF50; 
+    border: 2px solid #4CAF50; 
+    border-radius: 0.25rem; 
+    padding: 0.5rem 1rem; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.alertaExito button:hover {
+    background-color: #4CAF50; 
+    color: white; 
+}
+
+.alertaError{
+    display: none;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ae3636;
+    color: white; 
+    padding: 2rem; 
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+    z-index: 1000; 
+}
+
+.alertaError p {
+    margin: 0 0 1.5rem; 
+    font-size: 1.2rem; 
+}
+
+.alertaError button {
+    background-color: #ffffff; 
+    color: #ae3636; 
+    border: 2px solid #ae3636; 
+    border-radius: 0.25rem; 
+    padding: 0.5rem 1rem; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.alertaError button:hover {
+    background-color: #902c2c; 
+    color: white; 
+}
+
+.confirmacion{
+    display: none;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #6f8200;
+    color: white; 
+    padding: 2rem; 
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+    z-index: 1000; 
+}
+
+.confirmacion p {
+    margin: 0 0 1.5rem; 
+    font-size: 1.2rem; 
+}
+
+.confirmacion button {
+    background-color: #ffffff; 
+    color: #6f8200; 
+    border: 2px solid #6f8200; 
+    border-radius: 0.25rem; 
+    padding: 0.5rem 1rem; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.confirmacion button:hover {
+    background-color: #3f4a00; 
+    color: white; 
+}
