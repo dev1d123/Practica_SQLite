@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "icon" type="image/x-icon" href="../img/favicon.png">
     <link rel = "stylesheet" href="../css/styles.css">
+    <link rel = "stylesheet" href="../css/deleteMovie.css">
 
     <title>Eliminar Pelicula</title>
 </head>
@@ -19,14 +20,20 @@
     </header>
     <main>
         <!--Mostrar una disposicion grid de las peliculas y al hacer clic en ellas se eliminan-->
+        <p class="message">Seleccione una pelicula para eliminar</p>
+
         <div class="movie-table">
-            <p>Seleccione una pelicula para eliminar</p>
+            <p>Movie1</p>
+            <p>Movie2</p>
+            <p>Movie3</p>
         </div>
         <div class="alertaExito">
             <p>Tu pelicula junto con los datos de casting se han borrado permanentemente</p>
+            <button>Aceptar</button>
         </div>
         <div class="alertaError">
             <p>Tu pelicula no se pudo eliminar, lo sentimos</p>
+            <button>Aceptar</button>
         </div>
         <div class="confirmacion">
             <p>Estas seguro que deseas eliminar a la pelicula <span class="nameSelected"></span></p>
