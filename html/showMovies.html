@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "icon" type="image/x-icon" href="../img/favicon.png">
     <link rel = "stylesheet" href="../css/styles.css">
+    <link rel = "stylesheet" href="../css/showMovies.css">
 
-    <title>Eliminar Pelicula</title>
+    <title>Filtrar peliculas</title>
 </head>
 <body>
     <header>
@@ -17,58 +18,69 @@
             <img src="../img/logo.jpg" alt="" width="150px">
         </div>
     </header>
-    <nav>
-        <!--Barra lateral con los filtros para las peliculas-->
-        
-            <p>Puede seleccionar hasta 3 actores</p>
-            <form>
-                <div class="actor-filter">
-                    <select id="actor1" name="actor1">
-                        <option value="all">Seleccione un actor</option>
-                    </select>
-                    <select id="actor2" name="actor2">
-                        <option value="all">Seleccione un actor</option>
-                    </select>
-                    <select id="actor3" name="actor3">
-                        <option value="all">Seleccione un actor</option>
-                    </select>
-                    <br>
-                </div>
-                <div class="typeFilter">
-                    <label for="name">Nombre de la pelicula</label>
-                    <input type="text" name="title">
-                    <div class="year">
-                        <p>Ingrese el rango de año</p>
-                        <p>Desde</p>
-                        <input type="number" name="minYear" value="0">
-                        <p>Hasta</p>
-                        <input type="number" name="maxYear" value="9999">
-                    </div>   
-                    <div class="score">
-                        <p>Ingrese el rango de puntuacion de la pelicula</p>
-                        <p>Desde</p>
-                        <input type="number" name="minScore" value="0">
-                        <p>Hasta</p>
-                        <input type="number" name="maxScore" value="10.0">
+    <div class="container">
+        <nav>
+            <!--Barra lateral con los filtros para las peliculas-->
+            
+                <p>Puede seleccionar hasta 3 actores</p>
+                <form>
+                    <div class="actor-filter">
+                        <select id="actor1" name="actor1">
+                            <option value="all">Seleccione un actor</option>
+                        </select>
+                        <select id="actor2" name="actor2">
+                            <option value="all">Seleccione un actor</option>
+                        </select>
+                        <select id="actor3" name="actor3">
+                            <option value="all">Seleccione un actor</option>
+                        </select>
+                        <br>
                     </div>
-                    <div class="votes">
-                        <p>Ingrese el rango de votos de la pelicula</p>
-                        <p>Desde</p>
-                        <input type="number" name="minVotes" value="0">
-                        <p>Hasta</p>
-                        <input type="number" name="maxVotes" value="99999">
+                    <div class="typeFilter">
+                        <label for="name">Nombre de la pelicula</label>
+                        <input type="text" name="title">
+                        <div class="year">
+                            <p>Ingrese el rango de año</p>
+                            <p>Desde</p>
+                            <input type="number" name="minYear" value="0">
+                            <p>Hasta</p>
+                            <input type="number" name="maxYear" value="9999">
+                        </div>   
+                        <div class="score">
+                            <p>Ingrese el rango de puntuacion de la pelicula</p>
+                            <p>Desde</p>
+                            <input type="number" name="minScore" value="0">
+                            <p>Hasta</p>
+                            <input type="number" name="maxScore" value="10.0">
+                        </div>
+                        <div class="votes">
+                            <p>Ingrese el rango de votos de la pelicula</p>
+                            <p>Desde</p>
+                            <input type="number" name="minVotes" value="0">
+                            <p>Hasta</p>
+                            <input type="number" name="maxVotes" value="99999">
+                        </div>
                     </div>
-                </div>
-                <input type="submit" name="Aplicar filtros">
-            </form>
-        
-    </nav>
-    <main>
-        <!--Mostrar una disposicion grid de las peliculas filtradas-->
-        <div class="grid-Movies">
+                    <input type="submit" name="Aplicar filtros">
+                </form>
+            
+        </nav>
+        <main>
+            <!--Mostrar una disposicion grid de las peliculas filtradas-->
             <p>Estas son las peliculas que cumplen con las condiciones</p>
-        </div>
-    </main>
+
+            <div class="grid-Movies">
+                <p>Movie1</p>
+                <p>Movie2</p>
+                <p>Movie3</p>
+                <p>Movie3</p>
+                <p>Movie3</p>
+                <p>Movie3</p>
+                <p>Movie3</p>
+            </div>
+        </main>
+    </div>
+
     <footer>
 
         <div class="david">
