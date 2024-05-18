@@ -47,3 +47,32 @@ footer .copy{
     padding-bottom: 2rem;
     text-align: center;
 }
+
+/*Estilos para la barra de navegacion de index */
+.nav1{
+    background-color: black;
+
+
+}
+.nav1 ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.nav1 .option-box{
+    padding-top: 1rem;
+
+    text-align: center;
+}
+.nav1 a {
+    text-decoration: none;
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    color: beige;
+    transition: transform 0.3s;    
+    display: block; 
+    padding: 1rem; 
+}
+
+.nav1 a:hover {
+    transform: scale(1.1);
+}
