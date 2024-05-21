@@ -1,0 +1,1 @@
+Agregar esto en el linux servidor apache. /var/www/html/
