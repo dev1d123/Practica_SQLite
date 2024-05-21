@@ -22,11 +22,11 @@
     <main>
         <!--Dos opciones!-->
         <div class="container-options">
-            <button>
+            <button onclick="showFormMovie()">
                 <img src="../img/button-update1.png" alt="">
                 <p>Modificar datos de una pelicula</p>
             </button>
-            <button>
+            <button onclick="showFormCasting()">
                 <img src="../img/button-update2.png" alt="">
                 <p>Modificar el casting de una pelicula</p>
             </button>
@@ -35,6 +35,8 @@
         <!--Ventanas a desplegar segun las opciones elegidas!-->
         <div class="form-movie">
             <!--Mostrar una tabla con todas las peliculas con js, elegir una y editar los datos-->
+            <button onclick="closeFormMovie()">Cerrar</button>
+
             <div class="pelicula-table">
                 <p>Seleccione una pelicula para modificar!</p>
             </div>
@@ -57,6 +59,7 @@
             </div>
         </div>
         <div class="form-casting">
+            <button onclick="closeFormCasting()">Cerrar</button>
             <div class="pelicula-table">
                 <p>Seleccione una pelicula para modificar!</p>
             </div>
@@ -101,6 +104,6 @@
             &copy; 2024 CineCRUD. All rights reserved.
         </div>
     </footer>
-
+    <script src="../js/updateMovie.js"></script>
 </body>
 </html>
