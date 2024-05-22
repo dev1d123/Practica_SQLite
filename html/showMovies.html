@@ -23,7 +23,7 @@
             <!--Barra lateral con los filtros para las peliculas-->
             
                 <p>Puede seleccionar hasta 3 actores</p>
-                <form>
+                <form id="filter">
                     <div class="actor-filter">
                         <select id="actor1" name="actor1">
                             <option value="all">Seleccione un actor</option>
@@ -42,23 +42,23 @@
                         <div class="year">
                             <p>Ingrese el rango de año</p>
                             <p>Desde</p>
-                            <input type="number" name="minYear" value="0">
+                            <input type="number" name="minYear" id="minYear" value="0">
                             <p>Hasta</p>
-                            <input type="number" name="maxYear" value="9999">
+                            <input type="number" name="maxYear" id="maxYear" value="9999">
                         </div>   
                         <div class="score">
                             <p>Ingrese el rango de puntuacion de la pelicula</p>
                             <p>Desde</p>
-                            <input type="number" name="minScore" value="0">
+                            <input type="number" name="minScore" id="minScore" value="0">
                             <p>Hasta</p>
-                            <input type="number" name="maxScore" value="10.0">
+                            <input type="number" name="maxScore" id="maxScore" value="10.0">
                         </div>
                         <div class="votes">
                             <p>Ingrese el rango de votos de la pelicula</p>
                             <p>Desde</p>
-                            <input type="number" name="minVotes" value="0">
+                            <input type="number" name="minVotes" id="minVotes" value="0">
                             <p>Hasta</p>
-                            <input type="number" name="maxVotes" value="99999">
+                            <input type="number" name="maxVotes" id="maxVotes" value="99999">
                         </div>
                     </div>
                     <input type="submit" name="Aplicar filtros">
@@ -91,6 +91,7 @@
             &copy; 2024 CineCRUD. All rights reserved.
         </div>
     </footer>    
+    <script src="../js/showMovie.js"></script>
 </body>
 </html>
 
