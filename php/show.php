@@ -1,5 +1,5 @@
 <?php
-    /*Prueba para imprimir los parametros ingresados! */
+    /* Prueba para imprimir los parametros ingresados */
     $actor1 = isset($_POST["actor1"]) ? $_POST["actor1"] : null;
     $actor2 = isset($_POST["actor2"]) ? $_POST["actor2"] : null;
     $actor3 = isset($_POST["actor3"]) ? $_POST["actor3"] : null;
@@ -28,33 +28,33 @@
         "maxVotes" => $maxVotes
     ];
 
-    //Buscar el titulo directo de la pelicula
-    //Buscar el id de los actores seleccionados
-
-    //Los demas parametros estan en la tablaSS Movie
-
     try {
-        //creacion de objeto PHP Data Objects
+        // Creación de objeto PHP Data Objects
         $pdo = new PDO('sqlite:../database/imdb.db');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //para construir la consulta dinamicamente 1=!
-        $sql = "SELECT * FROM Movie WHERE 1=1";
+
+        // Primera consulta: buscar por título
+        $sql = "SELECT Movie.* FROM Movie WHERE 1=1";
         $params = [];
-        //solo se imprimira el titulo si hay un titulo bien escrito
+
         if ($title) {
             $sql .= " AND Title = :title";
             $params[':title'] = $title;
         }
-        
+
         $query = $pdo->prepare($sql);
         $query->execute($params);
 
-
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        // Si no hay resultados, realizar la búsqueda con otros parámetros
         if (empty($results)) {
-            //si no hay peliculas realizar las demas busquedas!
-            $sql = "SELECT * FROM Movie WHERE 1=1";
+            $sql = "SELECT Movie.* FROM Movie 
+                    LEFT JOIN Casting ON Movie.MovieID = Casting.MovieID
+                    LEFT JOIN Actor ON Casting.ActorID = Actor.ActorID
+                    WHERE 1=1";
             $params = [];
+
             if ($minYear) {
                 $sql .= " AND Year >= :minYear";
                 $params[':minYear'] = $minYear;
@@ -80,11 +80,29 @@
                 $params[':maxVotes'] = $maxVotes;
             }
 
+            if ($actor1 || $actor2 || $actor3) {
+                $actorConditions = [];
+                if ($actor1) {
+                    $actorConditions[] = "Actor.Name = :actor1";
+                    $params[':actor1'] = $actor1;
+                }
+                if ($actor2) {
+                    $actorConditions[] = "Actor.Name = :actor2";
+                    $params[':actor2'] = $actor2;
+                }
+                if ($actor3) {
+                    $actorConditions[] = "Actor.Name = :actor3";
+                    $params[':actor3'] = $actor3;
+                }
+                if ($actorConditions) {
+                    $sql .= " AND (" . implode(" OR ", $actorConditions) . ")";
+                }
+            }
+
             $query = $pdo->prepare($sql);
             $query->execute($params);
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         }
-
 
         $json = json_encode($results);
 

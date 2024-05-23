@@ -12,6 +12,7 @@ document.getElementById("filter").addEventListener("submit", function(event){
     var minVotes = document.getElementById("minVotes").value;
     var maxVotes = document.getElementById("maxVotes").value;
 
+
     var params = "actor1=" + encodeURIComponent(actor1) +
     "&actor2=" + encodeURIComponent(actor2) +
     "&actor3=" + encodeURIComponent(actor3) +
@@ -37,3 +38,40 @@ document.getElementById("filter").addEventListener("submit", function(event){
     };
     xhr.send(params);
 });
+
+
+//funcion para cargar a los actores
+
+console.log("Cargando a los actores!!!");
+//solicitud fetch en toda la tabla actores!
+var xhr2 = new XMLHttpRequest();
+xhr2.open("POST", "../php/showActors.php", true);
+xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+xhr2.onload = function(){
+    if(xhr2.status === 200){
+        console.log("Conexion exitosa, actores recibidos!");
+        //convertir los valores a json
+        const data = JSON.parse(xhr2.responseText);
+
+        console.log(xhr2.responseText);
+        printSelect(data);
+    }else{
+        console.log("Error");
+    }
+};
+xhr2.send();
+
+function printSelect(data){
+    var select = document.querySelectorAll(".actorSelect");
+    select.forEach(function(selectElement){
+        data.forEach((actor)=>{
+            console.log(actor.Name)
+            var newOpt = document.createElement('option');
+            newOpt.textContent = actor.Name;
+            newOpt.value = actor.Name;
+            selectElement.appendChild(newOpt);
+        });
+    });
+    
+}
