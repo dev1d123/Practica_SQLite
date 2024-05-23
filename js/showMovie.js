@@ -23,7 +23,6 @@ document.getElementById("filter").addEventListener("submit", function(event){
     "&minVotes=" + encodeURIComponent(minVotes) +
     "&maxVotes=" + encodeURIComponent(maxVotes);
 
-    console.log("Los parametros son: ", params);
     //efectuando la consulta mediante ajax
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "../php/show.php", true);
