@@ -51,6 +51,40 @@
 
 
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($results)) {
+            //si no hay peliculas realizar las demas busquedas!
+            $sql = "SELECT * FROM Movie WHERE 1=1";
+            $params = [];
+            if ($minYear) {
+                $sql .= " AND Year >= :minYear";
+                $params[':minYear'] = $minYear;
+            }
+            if ($maxYear) {
+                $sql .= " AND Year <= :maxYear";
+                $params[':maxYear'] = $maxYear;
+            }
+            if ($minScore) {
+                $sql .= " AND Score >= :minScore";
+                $params[':minScore'] = $minScore;
+            }
+            if ($maxScore) {
+                $sql .= " AND Score <= :maxScore";
+                $params[':maxScore'] = $maxScore;
+            }
+            if ($minVotes) {
+                $sql .= " AND Votes >= :minVotes";
+                $params[':minVotes'] = $minVotes;
+            }
+            if ($maxVotes) {
+                $sql .= " AND Votes <= :maxVotes";
+                $params[':maxVotes'] = $maxVotes;
+            }
+
+            $query = $pdo->prepare($sql);
+            $query->execute($params);
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+
 
         $json = json_encode($results);
 
