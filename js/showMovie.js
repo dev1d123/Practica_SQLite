@@ -12,7 +12,6 @@ document.getElementById("filter").addEventListener("submit", function(event){
     var minVotes = document.getElementById("minVotes").value;
     var maxVotes = document.getElementById("maxVotes").value;
 
-
     var params = "actor1=" + encodeURIComponent(actor1) +
     "&actor2=" + encodeURIComponent(actor2) +
     "&actor3=" + encodeURIComponent(actor3) +
@@ -24,6 +23,8 @@ document.getElementById("filter").addEventListener("submit", function(event){
     "&minVotes=" + encodeURIComponent(minVotes) +
     "&maxVotes=" + encodeURIComponent(maxVotes);
 
+    console.log("Los parametros enviados son: " + params);
+
     //efectuando la consulta mediante ajax
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "../php/show.php", true);
@@ -32,6 +33,9 @@ document.getElementById("filter").addEventListener("submit", function(event){
         if(xhr.status === 200){
             console.log("Conexion exitosa");
             console.log(xhr.responseText);
+            const data = JSON.parse(xhr.responseText);
+            printMovies(data);
+
         }else{
             console.log("Error");
         }
@@ -61,6 +65,36 @@ xhr2.onload = function(){
     }
 };
 xhr2.send();
+
+function printMovies(data) {
+    console.log("Se recibieron los siguientes!", data);
+    
+    const container = document.querySelector('.grid-Movies');
+    container.innerHTML = "";
+    data.forEach(movie => {
+        const movieDiv = document.createElement('div');
+
+        movieDiv.classList.add('movie');
+
+        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        movieDiv.style.backgroundColor = randomColor;
+
+        const title = document.createElement('p');
+        title.textContent = `Title: ${movie.title}`;
+        const year = document.createElement('p');
+        year.textContent = `Year: ${movie.year}`;
+        const score = document.createElement('p');
+        score.textContent = `Score: ${movie.score}`;
+        const votes = document.createElement('p');
+        votes.textContent = `Votes: ${movie.votes}`;
+        
+        movieDiv.appendChild(title);
+        movieDiv.appendChild(year);
+        movieDiv.appendChild(score);
+        movieDiv.appendChild(votes);
+        container.appendChild(movieDiv);
+    });
+}
 
 function printSelect(data){
     var select = document.querySelectorAll(".actorSelect");

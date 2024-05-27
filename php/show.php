@@ -29,11 +29,9 @@
     ];
 
     try {
-        // Creación de objeto PHP Data Objects
         $pdo = new PDO('sqlite:../database/imdb.db');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Primera consulta: buscar por título
         $sql = "SELECT Movie.* FROM Movie WHERE 1=1";
         $params = [];
 
@@ -47,12 +45,11 @@
 
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        // Si no hay resultados, realizar la búsqueda con otros parámetros
         if (empty($results)) {
-            $sql = "SELECT Movie.* FROM Movie 
-                    LEFT JOIN Casting ON Movie.MovieID = Casting.MovieID
-                    LEFT JOIN Actor ON Casting.ActorID = Actor.ActorID
-                    WHERE 1=1";
+                $sql = "SELECT Movie.* FROM Movie 
+                        LEFT JOIN Casting ON Movie.MovieID = Casting.MovieID
+                        LEFT JOIN Actor ON Casting.ActorID = Actor.ActorID
+                        WHERE 1=1";
             $params = [];
 
             if ($minYear) {
