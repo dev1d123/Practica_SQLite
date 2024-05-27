@@ -1,8 +1,6 @@
 <?php
     /* Prueba para imprimir los parametros ingresados */
-    $actor1 = isset($_POST["actor1"]) ? $_POST["actor1"] : null;
-    $actor2 = isset($_POST["actor2"]) ? $_POST["actor2"] : null;
-    $actor3 = isset($_POST["actor3"]) ? $_POST["actor3"] : null;
+    $actor = isset($_POST["actor"]) ? $_POST["actor"] : null;
 
     $title = isset($_POST["title"]) ? $_POST["title"] : null;
 
@@ -16,9 +14,7 @@
     $maxVotes = isset($_POST["maxVotes"]) ? $_POST["maxVotes"] : null;
 
     $response = [
-        "actor1" => $actor1,
-        "actor2" => $actor2,
-        "actor3" => $actor3,
+        "actor" => $actor,
         "title" => $title,
         "minYear" => $minYear,
         "maxYear" => $maxYear,
@@ -34,75 +30,85 @@
 
         $sql = "SELECT Movie.* FROM Movie WHERE 1=1";
         $params = [];
+        $sql .= ($minYear !== null ? " AND Year >= :minYear" : "") .
+                ($maxYear !== null ? " AND Year <= :maxYear" : "") .
+                ($minScore !== null ? " AND Score >= :minScore" : "") .
+                ($maxScore !== null ? " AND Score <= :maxScore" : "") .
+                ($minVotes !== null ? " AND Votes >= :minVotes" : "") .
+                ($maxVotes !== null ? " AND Votes <= :maxVotes" : "");
+
+        if ($minYear !== null) $params[':minYear'] = $minYear;
+        if ($maxYear !== null) $params[':maxYear'] = $maxYear;
+        if ($minScore !== null) $params[':minScore'] = $minScore;
+        if ($maxScore !== null) $params[':maxScore'] = $maxScore;
+        if ($minVotes !== null) $params[':minVotes'] = $minVotes;
+        if ($maxVotes !== null) $params[':maxVotes'] = $maxVotes;
 
         if ($title) {
             $sql .= " AND Title = :title";
             $params[':title'] = $title;
-        }
-
-        $query = $pdo->prepare($sql);
-        $query->execute($params);
-
-        $results = $query->fetchAll(PDO::FETCH_ASSOC);
-
-        if (empty($results)) {
-                $sql = "SELECT Movie.* FROM Movie 
-                        LEFT JOIN Casting ON Movie.MovieID = Casting.MovieID
-                        LEFT JOIN Actor ON Casting.ActorID = Actor.ActorID
-                        WHERE 1=1";
-            $params = [];
-
-            if ($minYear) {
-                $sql .= " AND Year >= :minYear";
-                $params[':minYear'] = $minYear;
-            }
-            if ($maxYear) {
-                $sql .= " AND Year <= :maxYear";
-                $params[':maxYear'] = $maxYear;
-            }
-            if ($minScore) {
-                $sql .= " AND Score >= :minScore";
-                $params[':minScore'] = $minScore;
-            }
-            if ($maxScore) {
-                $sql .= " AND Score <= :maxScore";
-                $params[':maxScore'] = $maxScore;
-            }
-            if ($minVotes) {
-                $sql .= " AND Votes >= :minVotes";
-                $params[':minVotes'] = $minVotes;
-            }
-            if ($maxVotes) {
-                $sql .= " AND Votes <= :maxVotes";
-                $params[':maxVotes'] = $maxVotes;
-            }
-
-            if ($actor1 || $actor2 || $actor3) {
-                $actorConditions = [];
-                if ($actor1) {
-                    $actorConditions[] = "Actor.Name = :actor1";
-                    $params[':actor1'] = $actor1;
-                }
-                if ($actor2) {
-                    $actorConditions[] = "Actor.Name = :actor2";
-                    $params[':actor2'] = $actor2;
-                }
-                if ($actor3) {
-                    $actorConditions[] = "Actor.Name = :actor3";
-                    $params[':actor3'] = $actor3;
-                }
-                if ($actorConditions) {
-                    $sql .= " AND (" . implode(" OR ", $actorConditions) . ")";
-                }
-            }
-
+            
             $query = $pdo->prepare($sql);
             $query->execute($params);
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            $json = json_encode($results);
+            header('Content-Type: application/json');
+            echo $json;
+            exit;
+
+
         }
 
-        $json = json_encode($results);
+        if ($actor) {
+            $actorSql = "SELECT ActorID FROM Actor WHERE Name = :actor";
+            $actorQuery = $pdo->prepare($actorSql);
+            $actorQuery->execute([':actor' => $actor]);
+            $actorResult = $actorQuery->fetch(PDO::FETCH_ASSOC);
 
+
+            
+            if ($actorResult) {
+
+                $actorId = $actorResult['ActorId'];
+                $castingSql = "SELECT MovieID FROM Casting WHERE ActorId = :actorId";
+                $castingQuery = $pdo->prepare($castingSql);
+                $castingQuery->execute([':actorId' => $actorId]);
+                $castingResults = $castingQuery->fetchAll(PDO::FETCH_ASSOC);
+
+
+                if ($castingResults) {
+                    $sql .= " AND (";
+                    $dor = 0;
+                    foreach ($castingResults as $row) {
+                        if ($dor > 0) {
+                            $sql .= " OR ";
+                        }
+                        $sql .= "MovieID = " . $row['MovieID'];
+                        $dor++;
+                    }
+                    $sql .= ")";
+                    
+
+                } else {
+                    $results = [];
+                    echo json_encode($results);
+                    exit;
+                }
+            } else {
+                $results = [];
+                echo json_encode($results);
+                exit;
+            }
+        }
+
+
+        // Ejecutar la consulta final
+        $query = $pdo->prepare($sql);
+        $query->execute($params);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        // Devolver los resultados en formato JSON
+        $json = json_encode($results);
         header('Content-Type: application/json');
         echo $json;
     } catch (PDOException $e) {

@@ -1,10 +1,13 @@
 document.getElementById("filter").addEventListener("submit", function(event){
     event.preventDefault(); 
     //obtener los parametros cuando se llame a la funcion
-    var actor1 = document.getElementById("actor1").value;
-    var actor2 = document.getElementById("actor2").value;
-    var actor3 = document.getElementById("actor3").value;
+    var actor = document.getElementById("actor").value;
     var title = document.getElementById("title").value;
+
+    if(actor != "all" && title != ""){
+        alert("Solo ingrese uno de los campos!");
+        return;
+    }
     var minYear = document.getElementById("minYear").value;
     var maxYear = document.getElementById("maxYear").value;
     var minScore = document.getElementById("minScore").value;
@@ -12,9 +15,7 @@ document.getElementById("filter").addEventListener("submit", function(event){
     var minVotes = document.getElementById("minVotes").value;
     var maxVotes = document.getElementById("maxVotes").value;
 
-    var params = "actor1=" + encodeURIComponent(actor1) +
-    "&actor2=" + encodeURIComponent(actor2) +
-    "&actor3=" + encodeURIComponent(actor3) +
+    var params = "actor=" + encodeURIComponent(actor) +
     "&title=" + encodeURIComponent(title) +
     "&minYear=" + encodeURIComponent(minYear) +
     "&maxYear=" + encodeURIComponent(maxYear) +
